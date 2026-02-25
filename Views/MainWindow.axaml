@@ -8,9 +8,9 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="VolumeBrightnessctl"
-        MinWidth="620"
+        MinWidth="650"
         MinHeight="350"
-        Width="620"
+        Width="650"
         Height="350"
         Background="#2a2a2a"
         Foreground="White">
@@ -45,11 +45,16 @@
     </Window.Styles>
 
     <StackPanel>
-        <TextBlock Text="{Binding VolumeText}"
-        HorizontalAlignment="Left" 
-        VerticalAlignment="Top" 
-        Padding="10"/>
-        
+        <Grid ColumnDefinitions="*,*,*" Margin="0,0,0,20">
+          <TextBlock Text="{Binding VolumeText}"
+          HorizontalAlignment="Left" 
+          VerticalAlignment="Top" 
+          Padding="10"
+          Grid.Column="0" />
+
+          <Button Content="❌" Click="OnButtonExit" Grid.Column="2" HorizontalAlignment="Right" />
+        </Grid>
+
         <Grid ColumnDefinitions="*,*,*">
           <Slider Value="{Binding Volume}"
           x:Name="VolumeSlider" 

@@ -15,6 +15,14 @@ public partial class MainWindow : Window
         BrightnessSlider.ValueChanged += OnBrightnessSliderChanged;
     }
 
+    private void OnButtonExit(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel viewModel)
+        {
+            viewModel.ExitApp();
+        }
+    }
+
     private void OnVolumeSliderChanged(object? sender, RangeBaseValueChangedEventArgs e)
     {
         if (DataContext is MainWindowViewModel viewModel)

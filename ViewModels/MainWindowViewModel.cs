@@ -13,25 +13,19 @@ public class Fetcher
         _main = main;
     }
 
-    private static ProcessStartInfo processVolInfo = new ProcessStartInfo
+    public static ProcessStartInfo makeProcessInfo(string argument)
     {
-        FileName = "/usr/bin/pactl",
-        Arguments = "-- get-sink-volume 0",
-        UseShellExecute = false,
-        RedirectStandardError = true,
-        RedirectStandardOutput = true,
-        CreateNoWindow = true
-    };
-
-    private static ProcessStartInfo processBriInfo = new ProcessStartInfo
-    {
-        FileName = "/usr/bin/brightnessctl",
-        Arguments = "",
-        UseShellExecute = false,
-        RedirectStandardError = true,
-        RedirectStandardOutput = true
-    };
-
+        ProcessStartInfo processInfoToReturn = new ProcessStartInfo
+        {
+            FileName = "/bin/bash",
+            Arguments = $"-c \"{argument}\"",
+            UseShellExecute = false,
+            RedirectStandardError = true,
+            RedirectStandardOutput = true,
+            CreateNoWindow = true
+        };
+        return processInfoToReturn;
+    }
     private static string? CatchOutput(ProcessStartInfo processInfo)
     {
         using var process = Process.Start(processInfo);
@@ -42,7 +36,7 @@ public class Fetcher
 
     public static int FetchBrightness()
     {
-        var line = CatchOutput(processBriInfo);
+        var line = CatchOutput(makeProcessInfo("brightnessctl"));
         try
         {
             var number = line.Split('(')[1].Split('%')[0];
@@ -61,7 +55,7 @@ public class Fetcher
 
     public static int FetchVolume()
     {
-        var line = CatchOutput(processVolInfo);
+        var line = CatchOutput(makeProcessInfo("pactl -- get-sink-volume 0"));
         try
         {
             var number = line.Split('/')[1].Trim().Split('%')[0];
@@ -142,5 +136,10 @@ public partial class MainWindowViewModel : ViewModelBase
     public void PreviousMedia()
     {
         runCommand($"playerctl previous");
+    }
+
+    public void ExitApp()
+    {
+        Environment.Exit(0);
     }
 }
