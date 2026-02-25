@@ -72,3 +72,4 @@
 /home/geezer/Projects/VolumeBrightnessctl/obj/Debug/net10.0/VolumeBrightnessctl.pdb
 /home/geezer/Projects/VolumeBrightnessctl/obj/Debug/net10.0/VolumeBrightnessctl.genruntimeconfig.cache
 /home/geezer/Projects/VolumeBrightnessctl/obj/Debug/net10.0/ref/VolumeBrightnessctl.dll
+/home/geezer/Projects/VolumeBrightnessctl/obj/Debug/net10.0/VolumeBrightnessctl.sourcelink.json

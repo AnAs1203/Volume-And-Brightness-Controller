@@ -8,8 +8,10 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="VolumeBrightnessctl"
-        MinWidth="400"
-        MinHeight="500"
+        MinWidth="620"
+        MinHeight="350"
+        Width="620"
+        Height="350"
         Background="#2a2a2a"
         Foreground="White">
 
@@ -31,6 +33,15 @@
             <Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
         </Style>
+        <Style Selector="Button">
+          <Setter Property="HorizontalContentAlignment" Value="Center"/>
+          <Setter Property="VerticalContentAlignment" Value="Center"/>
+          <Setter Property="Width" Value="150"/>
+          <Setter Property="Height" Value="55"/>
+          <Setter Property="FontSize" Value="25"/>
+          <Setter Property="Foreground" Value="#e0e0e0"/>
+          <Setter Property="CornerRadius" Value="10"/>
+        </Style>
     </Window.Styles>
 
     <StackPanel>
@@ -38,15 +49,20 @@
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 
         Padding="10"/>
-
-        <Slider Value="{Binding Volume}"
-        x:Name="VolumeSlider" 
-        Minimum="0" 
-        Maximum="100" 
-        Width="400" 
-        Height="35" />
         
-        <Button Content="Mute" Width="150" Height="45" Click="OnButtonClick" />
+        <Grid ColumnDefinitions="*,*,*">
+          <Slider Value="{Binding Volume}"
+          x:Name="VolumeSlider" 
+          Minimum="0" 
+          Maximum="100" 
+          Width="400" 
+          Height="35" 
+          HorizontalAlignment="Left" 
+          Grid.Column="0" />
+
+          <Button Content="🔇" Click="OnButtonClick" Grid.Column="2"/>
+        </Grid>
+        
 
         <TextBlock Text="{Binding BrightnessText}" 
         HorizontalAlignment="Left" 
@@ -58,12 +74,13 @@
         Minimum="0" 
         Maximum="100" 
         Width="400" 
-        Height="35" />
+        Height="35" 
+        HorizontalAlignment="Left" />
         
-        <Grid ColumnDefinitions="*,*,*">
-          <Button Content="⏮" Width="150" Height="45" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="OnButtonPrevious" FontSize="24" Foreground="#e0e0e0" CornerRadius="10" Grid.Column="0"/>
-          <Button Content="⏸" Width="150" Height="45" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="OnButtonPause" FontSize="24" Foreground="#e0e0e0" CornerRadius="10" Grid.Column="1"/>
-          <Button Content="⏭" Width="150" Height="45" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="OnButtonNext" FontSize="24" Foreground="#e0e0e0" CornerRadius="10" Grid.Column="2"/>
+        <Grid ColumnDefinitions="*,*,*" Margin="0,30,0,0">
+          <Button Content="⏮" HorizontalAlignment="Center" Click="OnButtonPrevious" Grid.Column="0"/>
+          <Button Content="⏸" HorizontalAlignment="Center" Click="OnButtonPause" Grid.Column="1"/>
+          <Button Content="⏭" HorizontalAlignment="Center" Click="OnButtonNext" Grid.Column="2"/>
         </Grid>
     </StackPanel>
 

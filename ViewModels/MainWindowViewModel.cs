@@ -1,14 +1,90 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
+using System;
 
 namespace VolumeBrightnessctl.ViewModels;
+
+public class Fetcher
+{
+    private readonly MainWindowViewModel _main;
+
+    public Fetcher(MainWindowViewModel main)
+    {
+        _main = main;
+    }
+
+    private static ProcessStartInfo processVolInfo = new ProcessStartInfo
+    {
+        FileName = "/usr/bin/pactl",
+        Arguments = "-- get-sink-volume 0",
+        UseShellExecute = false,
+        RedirectStandardError = true,
+        RedirectStandardOutput = true,
+        CreateNoWindow = true
+    };
+
+    private static ProcessStartInfo processBriInfo = new ProcessStartInfo
+    {
+        FileName = "/usr/bin/brightnessctl",
+        Arguments = "",
+        UseShellExecute = false,
+        RedirectStandardError = true,
+        RedirectStandardOutput = true
+    };
+
+    private static string? CatchOutput(ProcessStartInfo processInfo)
+    {
+        using var process = Process.Start(processInfo);
+        var line = process?.StandardOutput.ReadToEnd();
+        process?.WaitForExit();
+        return line;
+    }
+
+    public static int FetchBrightness()
+    {
+        var line = CatchOutput(processBriInfo);
+        try
+        {
+            var number = line.Split('(')[1].Split('%')[0];
+            return int.Parse(number);
+        }
+        catch (System.NullReferenceException)
+        {
+            Console.WriteLine("Could not get current volume");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occured: {ex.Message}");
+        }
+        return 0;
+    }
+
+    public static int FetchVolume()
+    {
+        var line = CatchOutput(processVolInfo);
+        try
+        {
+            var number = line.Split('/')[1].Trim().Split('%')[0];
+            return int.Parse(number);
+        }
+        catch (System.NullReferenceException)
+        {
+            Console.WriteLine("Could not get current volume");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occured: {ex.Message}");
+        }
+        return 0;
+    }
+}
 
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private double _volume = 23;
+    private double _volume = Fetcher.FetchVolume();
     [ObservableProperty]
-    private double _brightness = 40;
+    private double _brightness = Fetcher.FetchBrightness();
     public bool Muted = false;
     public string VolumeText => $"Volume: {Volume:F0}%";
     public string BrightnessText => $"Brightness: {Brightness:F0}%";
