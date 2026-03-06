@@ -76,6 +76,11 @@ public class Fetcher
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    public MainWindowViewModel()
+    {
+        Task.Run(UpdateVolume);
+    }
+    
     [ObservableProperty]
     private double _volume = Fetcher.FetchVolume();
     [ObservableProperty]
@@ -83,8 +88,17 @@ public partial class MainWindowViewModel : ViewModelBase
     public bool Muted = false;
     public string VolumeText => $"Volume: {Volume:F0}%";
     public string BrightnessText => $"Brightness: {Brightness:F0}%";
-
     
+    public static async Task UpdateVolume()
+    {
+        while (true)
+        {
+            Task.Delay(100).Wait();
+            Console.WriteLine("ran");
+            
+        }
+    }
+
     partial void OnVolumeChanged(double value)
     {
         OnPropertyChanged(nameof(VolumeText));
