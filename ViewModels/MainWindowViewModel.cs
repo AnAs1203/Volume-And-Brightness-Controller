@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System;
 
 namespace VolumeBrightnessctl.ViewModels;
@@ -83,6 +84,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string VolumeText => $"Volume: {Volume:F0}%";
     public string BrightnessText => $"Brightness: {Brightness:F0}%";
 
+    
     partial void OnVolumeChanged(double value)
     {
         OnPropertyChanged(nameof(VolumeText));

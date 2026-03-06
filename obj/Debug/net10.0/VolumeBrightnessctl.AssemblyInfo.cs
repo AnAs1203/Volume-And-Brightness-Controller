@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VolumeBrightnessctl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d1dd1c090661594833594d2341a11ecdcc02e32")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15f22901ad554f9e64cb3489630dd58f3bfcc847")]
 [assembly: System.Reflection.AssemblyProductAttribute("VolumeBrightnessctl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VolumeBrightnessctl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
